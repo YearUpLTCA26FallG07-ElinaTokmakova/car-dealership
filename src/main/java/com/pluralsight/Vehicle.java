@@ -89,7 +89,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle{" +
+        return "\nVehicle{" +
                 "vin=" + vin +
                 ", year=" + year +
                 ", make='" + make + '\'' +

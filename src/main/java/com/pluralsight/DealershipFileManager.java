@@ -43,6 +43,7 @@ public class DealershipFileManager {
     }
 
     public static Vehicle getVehicleFromLine(String line) {
+
         // split each line into parts
         // vin/year/make/model/vehicleType/color/odometer/price
         try {

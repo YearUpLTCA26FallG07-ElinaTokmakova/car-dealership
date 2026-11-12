@@ -83,7 +83,7 @@ public class Dealership {
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", inventory=" + inventory +
+                "\ninventory=" + inventory +
                 '}';
     }
 }
