@@ -69,9 +69,21 @@ public class Dealership {
     }
 
     public void addVehicle(Vehicle v) {
-        inventory.add(v);
+        if (v != null && !inventory.contains(v)) {
+            inventory.add(v);
+        }
     }
 
     public void removeVehicle(Vehicle v) {
+    }
+
+    @Override
+    public String toString() {
+        return "Dealership{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", inventory=" + inventory +
+                '}';
     }
 }
