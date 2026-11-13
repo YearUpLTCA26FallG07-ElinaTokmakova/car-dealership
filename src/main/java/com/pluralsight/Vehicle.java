@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Vehicle {
     private int vin;
@@ -20,7 +21,7 @@ public class Vehicle {
         this.vehicleType = vehicleType;
         this.color = color;
         this.odometer = odometer;
-        this.price = price;
+        this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
     public int getVin() {
@@ -89,15 +90,14 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "\nVehicle{" +
-                "vin=" + vin +
-                ", year=" + year +
-                ", make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", vehicleType='" + vehicleType + '\'' +
-                ", color='" + color + '\'' +
-                ", odometer=" + odometer +
-                ", price=" + price +
-                '}';
+        return String.format("""
+                ║ %-5d ║ %-4d ║ %-13s ║ %-14s ║ %-8s ║ %-9s ║ %10d ║ %11.2f ║""",
+                vin, year, make, model, vehicleType, color, odometer, price);
+    }
+
+    // use for adding new vehicles to .csv file
+    public String toEncodedString(){
+        return "\n" + getVin() + "|" + getYear() + "|" + getMake() + "|" + getModel()
+                + "|" + getVehicleType() + "|" + getColor() + "|" + getOdometer() + "|" + getPrice();
     }
 }

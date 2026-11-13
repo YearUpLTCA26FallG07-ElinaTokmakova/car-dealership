@@ -69,5 +69,14 @@ public class DealershipFileManager {
 
     public static void saveDealership(Dealership d) {
 
+        //       try {
+        //            String fileName = "inventory.csv";
+        //            FileWriter writer = new FileWriter(fileName, true);
+        //            writer.write(.toEncodedString());
+        //            writer.close();
+        //        } catch (IOException e) {
+        //            System.out.println("△ Something went wrong. Please try again.");
+        //        }
+        //    }
     }
 }

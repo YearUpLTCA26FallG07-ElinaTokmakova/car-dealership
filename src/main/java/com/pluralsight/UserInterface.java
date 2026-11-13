@@ -1,19 +1,24 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
+
 public class UserInterface {
     private Dealership dealership;
 
-    private UserInterface() {
-        this.dealership = DealershipFileManager.getDealership();
+    public UserInterface() {
+    }
+
+    private void init() {
+       this.dealership = DealershipFileManager.getDealership();
     }
 
     public void display() {
-       new UserInterface();
+        init();
         int selectedOption;
 
        do {
            selectedOption = com.pluralsight.models.Console.promptForInt("""
-                                 \\n╔════════════════════════════════════════╗
+                                 \n╔══════════════════════════════════════════╗
                                  ║               car dealership             ║
                                  ║        ~~~~~~~~~~~~~~~~~~~~~~~~~~~       ║
                                  ║  [1] find vehicles within a price range  ║
@@ -45,6 +50,20 @@ public class UserInterface {
        } while(selectedOption != 10);
     }
 
+    // helper method – displays list and can be called from all search
+    // and get vehicles type of methods
+    private void displayVehicles(ArrayList<Vehicle> selectedVehicles) {
+
+        System.out.println("""
+                \n╔═══════╦══════╦═══════════════╦════════════════╦══════════╦═══════════╦════════════╦═════════════╗
+                ║ vin   ║ year ║ make          ║ model          ║ type     ║ color     ║   odometer ║       price ║
+                ╠═══════╬══════╬═══════════════╬════════════════╬══════════╬═══════════╬════════════╬═════════════╣""");
+
+        for (Vehicle v : selectedVehicles) {
+            System.out.println(v);
+        }
+    }
+
     public void processGetByPriceRequest(){
     }
 
@@ -67,7 +86,8 @@ public class UserInterface {
     }
 
     public void processGetAllVehiclesRequest(){
-
+        ArrayList<Vehicle> allVehicles = this.dealership.getAllVehicles();
+        displayVehicles(allVehicles);
     }
 
     public void processAddVehicleRequest() {
