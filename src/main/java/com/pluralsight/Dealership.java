@@ -106,7 +106,15 @@ public class Dealership {
     }
 
     public ArrayList<Vehicle> getVehiclesByType(String vehicleType) {
-        return null;
+
+        // if type matches – add to result list
+        ArrayList<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getVehicleType().toLowerCase().contains(vehicleType)) {
+                result.add(v);
+            }
+        }
+        return result;
     }
 
     public ArrayList<Vehicle> getAllVehicles() {

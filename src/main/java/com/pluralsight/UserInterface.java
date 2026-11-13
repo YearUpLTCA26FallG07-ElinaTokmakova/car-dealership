@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -124,6 +125,11 @@ public class UserInterface {
 
     public void processGetByVehicleTypeRequest(){
 
+        // user input
+        String vehicleType = com.pluralsight.models.Console.promptForString("Enter type (car/SUV/coupe/truck/sedan/van): ").trim().toLowerCase();
+
+        ArrayList<Vehicle> result = dealership.getVehiclesByType(vehicleType);
+        displayVehicles(result);
     }
 
     public void processGetAllVehiclesRequest(){
@@ -132,7 +138,34 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest() {
+        int vin;
+        int year;
+        String make;
+        String model;
+        String vehicleType;
+        String color;
+        int odometer;
+        B
+        // user input
+        do {
+            int vin = com.pluralsight.models.Console.promptForInt("Enter vin (vehicle identification number):");
+        } w
+        int year = com.pluralsight.models.Console.promptForInt("Enter model year: ");
+        String make = com.pluralsight.models.Console.promptForString("Enter make: ");
+        String model = com.pluralsight.models.Console.promptForString("Enter model: ");
+        String vehicleType = com.pluralsight.models.Console.promptForString("Enter vehicle type: ");
+        String color = com.pluralsight.models.Console.promptForString("Enter color: ");
+        int odometer = com.pluralsight.models.Console.promptForInt("Enter mileage: ");
+        BigDecimal price = com.pluralsight.models.Console.promptForBigDecimal("Enter price: ");
+        price.setScale(2, RoundingMode.HALF_UP);
 
+        // create new vehicle
+        Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
+
+        dealership.addVehicle(v);
+
+        //success message
+        System.out.println("Vehicle is successfully added to inventory.");
     }
 
     public void processRemoveVehicleRequest(){
