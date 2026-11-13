@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class UserInterface {
     private Dealership dealership;
@@ -66,6 +67,7 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest(){
+
         // user input
         BigDecimal min = com.pluralsight.models.Console.promptForBigDecimal("Enter minimum price range (e.g. 5000): ");
         BigDecimal max = com.pluralsight.models.Console.promptForBigDecimal("Enter maximum price range (press Enter↵ to skip): ");
@@ -75,6 +77,7 @@ public class UserInterface {
     }
 
     public void processGetByMakeModelRequest(){
+
         // user input
         String make;
         do {
@@ -87,9 +90,10 @@ public class UserInterface {
     }
 
     public void processGetByYearRequest(){
+
         // user input
-        int min = 0;
-        int max = 3000;
+        int min;
+        int max;
         min = com.pluralsight.models.Console.promptForInt("Enter start of year range (press Enter↵ to skip): ");
         max = com.pluralsight.models.Console.promptForInt("Enter end of year range (press Enter↵ to skip): ");
 
@@ -99,10 +103,23 @@ public class UserInterface {
 
     public void processGetByColorRequest(){
 
+        // user input
+        String color = com.pluralsight.models.Console.promptForString("Enter color: ").trim().toLowerCase();
+
+        ArrayList<Vehicle> result = dealership.getVehiclesByColor(color);
+        displayVehicles(result);
     }
 
     public void processGetByMileageRequest(){
 
+        // user input
+        int min;
+        int max;
+        min = com.pluralsight.models.Console.promptForInt("Enter minimum mileage (press Enter↵ to skip): ");
+        max = com.pluralsight.models.Console.promptForInt("Enter maximum mileage (press Enter↵ to skip): ");
+
+        ArrayList<Vehicle> result = dealership.getVehiclesByMileage(min, max);
+        displayVehicles(result);
     }
 
     public void processGetByVehicleTypeRequest(){
