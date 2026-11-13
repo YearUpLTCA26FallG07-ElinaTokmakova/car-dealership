@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.models.Console;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -41,15 +43,41 @@ public class Dealership {
     }
 
     public ArrayList<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
-        return null;
+
+        // if price within range – add to result list
+        ArrayList<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getPrice().compareTo(min) >= 0 && v.getPrice().compareTo(max) <= 0) {
+                result.add(v);
+            }
+        }
+        return result;
     }
 
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+
+        // if make and model matches – add to result list
+        ArrayList<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getMake().toLowerCase().contains(make) &&
+                    (v.getModel().toLowerCase().contains(model) || v.getModel().isEmpty())) {
+                result.add(v);
+            }
+        }
+        return result;
     }
 
     public ArrayList<Vehicle> getVehiclesByYear(int min, int max) {
-        return null;
+
+        // if years within range – add to result list
+        ArrayList<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if ((v.getYear() >= min && v.getYear() <= max) ||
+            (v.getYear() >= min && max == 0)) {
+                result.add(v);
+            }
+        }
+        return result;
     }
 
     public ArrayList<Vehicle> getVehiclesByColor(String color) {
