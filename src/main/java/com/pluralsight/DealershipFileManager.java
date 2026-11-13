@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 // reads inventory file and converts text into Dealership object
 // takes Dealership object and save into inventory file
 public class DealershipFileManager {
+
     public static Dealership getDealership() {
         String fileName = "inventory.csv";
         Dealership dealership = null;
@@ -26,7 +27,7 @@ public class DealershipFileManager {
             // create Dealership
             dealership = new Dealership(name, address, phone);
 
-            //loop goes through every line in file
+            // loop goes through every line in file
             while ((line = bufferedReader.readLine()) != null) {
                 // convert each line to Vehicle object
                 Vehicle v = getVehicleFromLine(line);

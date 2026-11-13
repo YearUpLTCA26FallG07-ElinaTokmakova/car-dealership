@@ -13,7 +13,7 @@ public class Dealership {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        inventory = new ArrayList<>();
+        this.inventory = new ArrayList<>();
     }
 
     public String getName() {
