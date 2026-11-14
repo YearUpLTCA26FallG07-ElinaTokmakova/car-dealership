@@ -15,7 +15,6 @@ public class Console {
 
     public static int promptForInt(String prompt) {
         String input = "";
-        boolean isValid = false;
 
         while(true) {
             try{
@@ -59,23 +58,30 @@ public class Console {
     }
 
     public static BigDecimal promptForBigDecimal(String prompt) {
-        BigDecimal result = BigDecimal.valueOf(0.00);
-        boolean isValid = false;
+        String input = "";
 
-        do {
+        while(true) {
             try {
                 System.out.print(prompt);
-                result = scanner.nextBigDecimal();
-                scanner.nextLine(); // Consume the newline
-                // 2 decimals format
-                result = result.setScale(2, RoundingMode.HALF_UP);
-                isValid = true;     // Input was successful, exit loop
+                input = scanner.nextLine().trim();
+
+                // if input is not empty convert to BigDecimal
+                if (!input.isEmpty()) {
+                    BigDecimal result = new BigDecimal(input);
+
+                    // 2 decimals format
+                    result = result.setScale(2, RoundingMode.HALF_UP);
+
+                    return result;
+
+                    // if empty return 0
+                } else {
+                    return BigDecimal.ZERO;
+                }
             } catch (InputMismatchException e) {
                 System.out.println("\nInvalid input. Please enter a valid number.");
                 scanner.nextLine(); // Clear the newline from the scanner buffer
             }
-        } while (!isValid);
-
-        return result;
+        }
     }
 }

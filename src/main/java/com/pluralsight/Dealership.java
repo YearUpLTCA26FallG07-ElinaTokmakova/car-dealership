@@ -128,6 +128,9 @@ public class Dealership {
     }
 
     public void removeVehicle(Vehicle v) {
+        if (v != null && inventory.contains(v)) {
+            inventory.remove(v);
+        }
     }
 
     @Override

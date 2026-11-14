@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -12,45 +13,46 @@ public class UserInterface {
     }
 
     private void init() {
-       this.dealership = DealershipFileManager.getDealership();
+        this.dealership = DealershipFileManager.getDealership();
     }
 
     public void display() {
         init();
         int selectedOption;
 
-       do {
-           selectedOption = com.pluralsight.models.Console.promptForInt("""
-                                 \n╔══════════════════════════════════════════╗
-                                 ║               car dealership             ║
-                                 ║        ~~~~~~~~~~~~~~~~~~~~~~~~~~~       ║
-                                 ║  [1] find vehicles within a price range  ║
-                                 ║  [2] find vehicles by make / model       ║
-                                 ║  [3] find vehicles by year range         ║
-                                 ║  [4] find vehicles by color              ║
-                                 ║  [5] find vehicles by mileage range      ║
-                                 ║  [6] find vehicles by type               ║
-                                 ║  [7] view all vehicles                   ║
-                                 ║  [8] add a vehicle                       ║
-                                 ║  [9] remove a vehicle                    ║
-                                 ║  [10] quit                               ║
-                                 ╚══════════════════════════════════════════╝
-                                 Select an option (1-10): """);
+        do {
+            selectedOption = com.pluralsight.models.Console.promptForInt("""
+                    \n╔══════════════════════════════════════════╗
+                    ║               car dealership             ║
+                    ║        ~~~~~~~~~~~~~~~~~~~~~~~~~~~       ║
+                    ║  [1] find vehicles within a price range  ║
+                    ║  [2] find vehicles by make / model       ║
+                    ║  [3] find vehicles by year range         ║
+                    ║  [4] find vehicles by color              ║
+                    ║  [5] find vehicles by mileage range      ║
+                    ║  [6] find vehicles by type               ║
+                    ║  [7] view all vehicles                   ║
+                    ║  [8] add a vehicle                       ║
+                    ║  [9] remove a vehicle                    ║
+                    ║  [10] quit                               ║
+                    ╚══════════════════════════════════════════╝
+                    Select an option (1-10): """);
 
-           switch(selectedOption){
-               case 1 -> processGetByPriceRequest();
-               case 2 -> processGetByMakeModelRequest();
-               case 3 -> processGetByYearRequest();
-               case 4 -> processGetByColorRequest();
-               case 5 -> processGetByMileageRequest();
-               case 6 -> processGetByVehicleTypeRequest();
-               case 7 -> processGetAllVehiclesRequest();
-               case 8 -> processAddVehicleRequest();
-               case 9 -> processRemoveVehicleRequest();
-               case 10 -> {}
-               default -> System.out.println("\n△ Invalid command, please try again.");
-           }
-       } while(selectedOption != 10);
+            switch (selectedOption) {
+                case 1 -> processGetByPriceRequest();
+                case 2 -> processGetByMakeModelRequest();
+                case 3 -> processGetByYearRequest();
+                case 4 -> processGetByColorRequest();
+                case 5 -> processGetByMileageRequest();
+                case 6 -> processGetByVehicleTypeRequest();
+                case 7 -> processGetAllVehiclesRequest();
+                case 8 -> processAddVehicleRequest();
+                case 9 -> processRemoveVehicleRequest();
+                case 10 -> {
+                }
+                default -> System.out.println("\n△ Invalid command, please try again.");
+            }
+        } while (selectedOption != 10);
     }
 
     // helper method – displays list and can be called from all search
@@ -67,17 +69,17 @@ public class UserInterface {
         }
     }
 
-    public void processGetByPriceRequest(){
+    public void processGetByPriceRequest() {
 
         // user input
-        BigDecimal min = com.pluralsight.models.Console.promptForBigDecimal("Enter minimum price range (e.g. 5000): ");
+        BigDecimal min = com.pluralsight.models.Console.promptForBigDecimal("Enter minimum price range (press Enter↵ to skip): ");
         BigDecimal max = com.pluralsight.models.Console.promptForBigDecimal("Enter maximum price range (press Enter↵ to skip): ");
 
         ArrayList<Vehicle> result = dealership.getVehiclesByPrice(min, max);
         displayVehicles(result);
     }
 
-    public void processGetByMakeModelRequest(){
+    public void processGetByMakeModelRequest() {
 
         // user input
         String make;
@@ -90,7 +92,7 @@ public class UserInterface {
         displayVehicles(result);
     }
 
-    public void processGetByYearRequest(){
+    public void processGetByYearRequest() {
 
         // user input
         int min;
@@ -102,7 +104,7 @@ public class UserInterface {
         displayVehicles(result);
     }
 
-    public void processGetByColorRequest(){
+    public void processGetByColorRequest() {
 
         // user input
         String color = com.pluralsight.models.Console.promptForString("Enter color: ").trim().toLowerCase();
@@ -111,7 +113,7 @@ public class UserInterface {
         displayVehicles(result);
     }
 
-    public void processGetByMileageRequest(){
+    public void processGetByMileageRequest() {
 
         // user input
         int min;
@@ -123,7 +125,7 @@ public class UserInterface {
         displayVehicles(result);
     }
 
-    public void processGetByVehicleTypeRequest(){
+    public void processGetByVehicleTypeRequest() {
 
         // user input
         String vehicleType = com.pluralsight.models.Console.promptForString("Enter type (car/SUV/coupe/truck/sedan/van): ").trim().toLowerCase();
@@ -132,42 +134,111 @@ public class UserInterface {
         displayVehicles(result);
     }
 
-    public void processGetAllVehiclesRequest(){
+    public void processGetAllVehiclesRequest() {
         ArrayList<Vehicle> allVehicles = this.dealership.getAllVehicles();
         displayVehicles(allVehicles);
     }
 
     public void processAddVehicleRequest() {
-        int vin;
-        int year;
-        String make;
-        String model;
-        String vehicleType;
-        String color;
-        int odometer;
-        B
+
         // user input
-        do {
-            int vin = com.pluralsight.models.Console.promptForInt("Enter vin (vehicle identification number):");
-        } w
-        int year = com.pluralsight.models.Console.promptForInt("Enter model year: ");
-        String make = com.pluralsight.models.Console.promptForString("Enter make: ");
-        String model = com.pluralsight.models.Console.promptForString("Enter model: ");
-        String vehicleType = com.pluralsight.models.Console.promptForString("Enter vehicle type: ");
-        String color = com.pluralsight.models.Console.promptForString("Enter color: ");
-        int odometer = com.pluralsight.models.Console.promptForInt("Enter mileage: ");
-        BigDecimal price = com.pluralsight.models.Console.promptForBigDecimal("Enter price: ");
-        price.setScale(2, RoundingMode.HALF_UP);
+        int vin = promptForVin();
+        int year = promptForYear();
+        String make = promptForMake();
+        String model = promptForModel();
+        String vehicleType = promptForVehicleType();
+        String color = promptForColor();
+        int odometer = promptForOdometer();
+        BigDecimal price = promptForPrice();
 
         // create new vehicle
         Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
 
+        // add it to inventory
         dealership.addVehicle(v);
 
-        //success message
-        System.out.println("Vehicle is successfully added to inventory.");
+        // success message
+        System.out.println("\nVehicle is successfully added to inventory.");
     }
 
-    public void processRemoveVehicleRequest(){
+    public void processRemoveVehicleRequest() {
+        //user input
+        int vin = com.pluralsight.models.Console.promptForInt("\n ")
+    }
+
+    public int promptForVin() {
+        int vin = 0;
+        vin = com.pluralsight.models.Console.promptForInt("\nEnter VIN (vehicle identification number): ");
+        while (vin == 0) {
+            vin = com.pluralsight.models.Console.promptForInt("Field cannot be empty. Enter VIN: ");
+        }
+        return vin;
+    }
+
+    public int promptForYear() {
+        int year = 0;
+        LocalDate today = LocalDate.now();
+        int currentYear = today.getYear();
+        year = com.pluralsight.models.Console.promptForInt("Enter model year: ");
+        while (year < 1900 || year > currentYear) {
+            year = com.pluralsight.models.Console.promptForInt("Model year should be between 1900 - " + currentYear + ". Enter model year: ");
+        }
+        return year;
+    }
+
+    public String promptForMake() {
+        String make = "";
+        make = com.pluralsight.models.Console.promptForString("Enter make: ");
+        while (make.isEmpty()) {
+            make = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter make: ");
+        }
+        return make;
+    }
+
+    public String promptForModel() {
+        String model = "";
+        model = com.pluralsight.models.Console.promptForString("Enter model: ");
+        while (model.isEmpty()) {
+            model = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter model: ");
+        }
+        return model;
+    }
+
+    public String promptForVehicleType() {
+        String vehicleType = "";
+        vehicleType = com.pluralsight.models.Console.promptForString("Enter vehicle type: ");
+        while (vehicleType.isEmpty()) {
+            vehicleType = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter vehicle type: ");
+        }
+        return vehicleType;
+    }
+
+    public String promptForColor() {
+        String color = "";
+        color = com.pluralsight.models.Console.promptForString("Enter color: ");
+        while (color.isEmpty()) {
+            color = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter color: ");
+        }
+        return color;
+    }
+
+    public int promptForOdometer() {
+        int odometer = 0;
+        odometer = com.pluralsight.models.Console.promptForInt("Enter mileage: ");
+        while (odometer == 0) {
+            odometer = com.pluralsight.models.Console.promptForInt("Field cannot be empty. Enter mileage: ");
+        }
+        return odometer;
+    }
+
+    public BigDecimal promptForPrice() {
+        BigDecimal price = BigDecimal.ZERO;
+        price = com.pluralsight.models.Console.promptForBigDecimal("Enter price: ");
+        while (price.compareTo(BigDecimal.ZERO) == 0) {
+            price = com.pluralsight.models.Console.promptForBigDecimal("Field cannot be empty. Enter price: ");
+        }
+
+        price = price.setScale(2, RoundingMode.HALF_UP);
+        return price;
     }
 }
