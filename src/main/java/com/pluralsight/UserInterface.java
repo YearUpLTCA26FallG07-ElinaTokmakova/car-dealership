@@ -158,12 +158,18 @@ public class UserInterface {
         dealership.addVehicle(v);
 
         // success message
-        System.out.println("\nVehicle is successfully added to inventory.");
+        System.out.println("\n✓ Vehicle is successfully added to inventory.");
     }
 
     public void processRemoveVehicleRequest() {
         //user input
-        int vin = com.pluralsight.models.Console.promptForInt("\n ")
+        int vin = com.pluralsight.models.Console.promptForInt("\nEnter VIN of vehicle to remove: ");
+
+        dealership.removeVehicle(vin);
+
+        // success message
+        System.out.println("\n✓ Vehicle is successfully removed from inventory.");
+
     }
 
     public int promptForVin() {

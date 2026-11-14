@@ -73,7 +73,7 @@ public class Dealership {
         ArrayList<Vehicle> result = new ArrayList<>();
         for (Vehicle v : inventory) {
             if ((v.getYear() >= min && v.getYear() <= max) ||
-            (v.getYear() >= min && max == 0)) {
+                    (v.getYear() >= min && max == 0)) {
                 result.add(v);
             }
         }
@@ -127,10 +127,8 @@ public class Dealership {
         }
     }
 
-    public void removeVehicle(Vehicle v) {
-        if (v != null && inventory.contains(v)) {
-            inventory.remove(v);
-        }
+    public void removeVehicle(int vin) {
+        inventory.removeIf(v -> v.getVin() == vin);
     }
 
     @Override
