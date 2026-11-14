@@ -1,9 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
@@ -69,14 +66,13 @@ public class DealershipFileManager {
 
     public static void saveDealership(Dealership d) {
 
-        //       try {
-        //            String fileName = "inventory.csv";
-        //            FileWriter writer = new FileWriter(fileName, true);
-        //            writer.write(.toEncodedString());
-        //            writer.close();
-        //        } catch (IOException e) {
-        //            System.out.println("△ Something went wrong. Please try again.");
-        //        }
-        //    }
+        try {
+            String fileName = "inventory.csv";
+            FileWriter writer = new FileWriter(fileName, false);
+            writer.write(d.toEncodedString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong. Please try again.");
+        }
     }
 }

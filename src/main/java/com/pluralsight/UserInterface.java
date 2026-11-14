@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class UserInterface {
     private Dealership dealership;
@@ -21,7 +20,7 @@ public class UserInterface {
         int selectedOption;
 
         do {
-            selectedOption = com.pluralsight.models.Console.promptForInt("""
+            selectedOption = com.pluralsight.Console.promptForInt("""
                     \n╔══════════════════════════════════════════╗
                     ║               car dealership             ║
                     ║        ~~~~~~~~~~~~~~~~~~~~~~~~~~~       ║
@@ -48,9 +47,8 @@ public class UserInterface {
                 case 7 -> processGetAllVehiclesRequest();
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
-                case 10 -> {
-                }
-                default -> System.out.println("\n△ Invalid command, please try again.");
+                case 10 -> System.out.println("\nHave a good day!");
+                default -> System.out.println("\nInvalid command, please try again.");
             }
         } while (selectedOption != 10);
     }
@@ -72,8 +70,8 @@ public class UserInterface {
     public void processGetByPriceRequest() {
 
         // user input
-        BigDecimal min = com.pluralsight.models.Console.promptForBigDecimal("Enter minimum price range (press Enter↵ to skip): ");
-        BigDecimal max = com.pluralsight.models.Console.promptForBigDecimal("Enter maximum price range (press Enter↵ to skip): ");
+        BigDecimal min = com.pluralsight.Console.promptForBigDecimal("Enter minimum price range (press Enter↵ to skip): ");
+        BigDecimal max = com.pluralsight.Console.promptForBigDecimal("Enter maximum price range (press Enter↵ to skip): ");
 
         ArrayList<Vehicle> result = dealership.getVehiclesByPrice(min, max);
         displayVehicles(result);
@@ -84,9 +82,9 @@ public class UserInterface {
         // user input
         String make;
         do {
-            make = com.pluralsight.models.Console.promptForString("Enter make: ").trim().toLowerCase();
+            make = com.pluralsight.Console.promptForString("Enter make: ").trim().toLowerCase();
         } while (make.isEmpty());
-        String model = com.pluralsight.models.Console.promptForString("Enter model (press Enter↵ to skip): ").trim().toLowerCase();
+        String model = com.pluralsight.Console.promptForString("Enter model (press Enter↵ to skip): ").trim().toLowerCase();
 
         ArrayList<Vehicle> result = dealership.getVehiclesByMakeModel(make, model);
         displayVehicles(result);
@@ -97,8 +95,8 @@ public class UserInterface {
         // user input
         int min;
         int max;
-        min = com.pluralsight.models.Console.promptForInt("Enter start of year range (press Enter↵ to skip): ");
-        max = com.pluralsight.models.Console.promptForInt("Enter end of year range (press Enter↵ to skip): ");
+        min = com.pluralsight.Console.promptForInt("Enter start of year range (press Enter↵ to skip): ");
+        max = com.pluralsight.Console.promptForInt("Enter end of year range (press Enter↵ to skip): ");
 
         ArrayList<Vehicle> result = dealership.getVehiclesByYear(min, max);
         displayVehicles(result);
@@ -107,7 +105,7 @@ public class UserInterface {
     public void processGetByColorRequest() {
 
         // user input
-        String color = com.pluralsight.models.Console.promptForString("Enter color: ").trim().toLowerCase();
+        String color = com.pluralsight.Console.promptForString("Enter color: ").trim().toLowerCase();
 
         ArrayList<Vehicle> result = dealership.getVehiclesByColor(color);
         displayVehicles(result);
@@ -118,8 +116,8 @@ public class UserInterface {
         // user input
         int min;
         int max;
-        min = com.pluralsight.models.Console.promptForInt("Enter minimum mileage (press Enter↵ to skip): ");
-        max = com.pluralsight.models.Console.promptForInt("Enter maximum mileage (press Enter↵ to skip): ");
+        min = com.pluralsight.Console.promptForInt("Enter minimum mileage (press Enter↵ to skip): ");
+        max = com.pluralsight.Console.promptForInt("Enter maximum mileage (press Enter↵ to skip): ");
 
         ArrayList<Vehicle> result = dealership.getVehiclesByMileage(min, max);
         displayVehicles(result);
@@ -128,7 +126,7 @@ public class UserInterface {
     public void processGetByVehicleTypeRequest() {
 
         // user input
-        String vehicleType = com.pluralsight.models.Console.promptForString("Enter type (car/SUV/coupe/truck/sedan/van): ").trim().toLowerCase();
+        String vehicleType = com.pluralsight.Console.promptForString("Enter type (car/SUV/coupe/truck/sedan/van): ").trim().toLowerCase();
 
         ArrayList<Vehicle> result = dealership.getVehiclesByType(vehicleType);
         displayVehicles(result);
@@ -157,15 +155,22 @@ public class UserInterface {
         // add it to inventory
         dealership.addVehicle(v);
 
+        // save file
+        DealershipFileManager.saveDealership(dealership);
+
         // success message
         System.out.println("\n✓ Vehicle is successfully added to inventory.");
     }
 
     public void processRemoveVehicleRequest() {
-        //user input
-        int vin = com.pluralsight.models.Console.promptForInt("\nEnter VIN of vehicle to remove: ");
+        // user input
+        int vin = com.pluralsight.Console.promptForInt("\nEnter VIN of vehicle to remove: ");
 
+        // remove from inventory
         dealership.removeVehicle(vin);
+
+        // save file
+        DealershipFileManager.saveDealership(dealership);
 
         // success message
         System.out.println("\n✓ Vehicle is successfully removed from inventory.");
@@ -174,9 +179,9 @@ public class UserInterface {
 
     public int promptForVin() {
         int vin = 0;
-        vin = com.pluralsight.models.Console.promptForInt("\nEnter VIN (vehicle identification number): ");
+        vin = com.pluralsight.Console.promptForInt("\nEnter VIN (vehicle identification number): ");
         while (vin == 0) {
-            vin = com.pluralsight.models.Console.promptForInt("Field cannot be empty. Enter VIN: ");
+            vin = com.pluralsight.Console.promptForInt("Field cannot be empty. Enter VIN: ");
         }
         return vin;
     }
@@ -185,63 +190,63 @@ public class UserInterface {
         int year = 0;
         LocalDate today = LocalDate.now();
         int currentYear = today.getYear();
-        year = com.pluralsight.models.Console.promptForInt("Enter model year: ");
+        year = com.pluralsight.Console.promptForInt("Enter model year: ");
         while (year < 1900 || year > currentYear) {
-            year = com.pluralsight.models.Console.promptForInt("Model year should be between 1900 - " + currentYear + ". Enter model year: ");
+            year = com.pluralsight.Console.promptForInt("Model year should be between 1900 - " + currentYear + ". Enter model year: ");
         }
         return year;
     }
 
     public String promptForMake() {
         String make = "";
-        make = com.pluralsight.models.Console.promptForString("Enter make: ");
+        make = com.pluralsight.Console.promptForString("Enter make: ");
         while (make.isEmpty()) {
-            make = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter make: ");
+            make = com.pluralsight.Console.promptForString("Field cannot be empty. Enter make: ");
         }
         return make;
     }
 
     public String promptForModel() {
         String model = "";
-        model = com.pluralsight.models.Console.promptForString("Enter model: ");
+        model = com.pluralsight.Console.promptForString("Enter model: ");
         while (model.isEmpty()) {
-            model = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter model: ");
+            model = com.pluralsight.Console.promptForString("Field cannot be empty. Enter model: ");
         }
         return model;
     }
 
     public String promptForVehicleType() {
         String vehicleType = "";
-        vehicleType = com.pluralsight.models.Console.promptForString("Enter vehicle type: ");
+        vehicleType = com.pluralsight.Console.promptForString("Enter vehicle type: ");
         while (vehicleType.isEmpty()) {
-            vehicleType = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter vehicle type: ");
+            vehicleType = com.pluralsight.Console.promptForString("Field cannot be empty. Enter vehicle type: ");
         }
         return vehicleType;
     }
 
     public String promptForColor() {
         String color = "";
-        color = com.pluralsight.models.Console.promptForString("Enter color: ");
+        color = com.pluralsight.Console.promptForString("Enter color: ");
         while (color.isEmpty()) {
-            color = com.pluralsight.models.Console.promptForString("Field cannot be empty. Enter color: ");
+            color = com.pluralsight.Console.promptForString("Field cannot be empty. Enter color: ");
         }
         return color;
     }
 
     public int promptForOdometer() {
         int odometer = 0;
-        odometer = com.pluralsight.models.Console.promptForInt("Enter mileage: ");
+        odometer = com.pluralsight.Console.promptForInt("Enter mileage: ");
         while (odometer == 0) {
-            odometer = com.pluralsight.models.Console.promptForInt("Field cannot be empty. Enter mileage: ");
+            odometer = com.pluralsight.Console.promptForInt("Field cannot be empty. Enter mileage: ");
         }
         return odometer;
     }
 
     public BigDecimal promptForPrice() {
         BigDecimal price = BigDecimal.ZERO;
-        price = com.pluralsight.models.Console.promptForBigDecimal("Enter price: ");
+        price = com.pluralsight.Console.promptForBigDecimal("Enter price: ");
         while (price.compareTo(BigDecimal.ZERO) == 0) {
-            price = com.pluralsight.models.Console.promptForBigDecimal("Field cannot be empty. Enter price: ");
+            price = com.pluralsight.Console.promptForBigDecimal("Field cannot be empty. Enter price: ");
         }
 
         price = price.setScale(2, RoundingMode.HALF_UP);

@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import com.pluralsight.models.Console;
+import com.pluralsight.Console;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -139,5 +139,17 @@ public class Dealership {
                 ", phone='" + phone + '\'' +
                 "\ninventory=" + inventory +
                 '}';
+    }
+
+    // formats dealership to save in inventory.csv file
+    public String toEncodedString() {
+        StringBuilder result = new StringBuilder();
+        result.append(name + "|" + address + "|" + phone);
+
+        for (Vehicle v : inventory) {
+            result.append(v.toEncodedString());
+        }
+
+        return result.toString();
     }
 }
