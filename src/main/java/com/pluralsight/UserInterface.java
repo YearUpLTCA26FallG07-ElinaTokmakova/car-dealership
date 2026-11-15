@@ -20,8 +20,8 @@ public class UserInterface {
         int selectedOption;
         printLineSlowly("Welcome to D & B car dealership!", 50);
 
-        printLineSlowly("\n• loading...", 50);
         do {
+            printLineSlowly("\n• loading...", 50);
             Thread.sleep(1000);
             System.out.println("""
                     \n---------------------------------------
